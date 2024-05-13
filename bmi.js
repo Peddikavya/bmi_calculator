@@ -1,41 +1,30 @@
-const readline = require('readline');
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-const random_number = Math.floor(Math.random() * 25) + 1;
-let chances = 5;
-function startGame() {
-    console.log("Welcome to the Number Guessing Game!");
-    console.log("You have 5 chances to guess the number between 1 and 25.");
-    function promptGuess() {
-        if (chances > 0) {
-            rl.question("Enter your guess: ", (input) => {
-                const guess = parseInt(input);
+do {
+    let mass = parseFloat(prompt("Enter your mass in kg"));
+    let height = parseFloat(prompt("Enter your height in cm"));
 
-                if (isNaN(guess) || guess < 1 || guess > 100) {
-                    console.log("Please enter a valid number between 1 and 100.");
-                    promptGuess();
-                    return;
-                }
-                if (guess === random_number) {
-                    console.log("Congratulations! You guessed the correct number.");
-                    rl.close();
-                    return;
-                } else if (guess < random_number) {
-                    console.log("Selected number is less. Increase it.");
-                } else {
-                    console.log("Selected number is high. Decrease it.");
-                }
-                chances--;
-                console.log("You have " + chances + " chances left.");
-                promptGuess();
-            });
-        } else {
-            console.log("Sorry, you've run out of chances. The correct number was " + random_number + ".");
-            rl.close();
-        }
+    let bmi = mass/(height/100)**2
+
+    if (isNaN(bmi) || bmi <= 0) {
+        alert("Invalid input. Please enter valid numbers for mass and height.");
+        continue; 
     }
-    promptGuess();
-}
-startGame();
+
+    if (bmi < 18.5) {
+        alert("You are underweight");
+    } else if (bmi < 25) {
+        alert("You have normal bmi");
+    } else if (bmi < 30) {
+        alert("You are overweight");
+    } else {
+        alert("You are obese");
+    }
+
+    var response = prompt("Do you want to continue? (yes/no)");
+
+    if (response.toLowerCase() !== 'yes') {
+        break; 
+    }
+
+} while (true);
+
+alert("Program ended.");
