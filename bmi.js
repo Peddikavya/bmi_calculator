@@ -1,30 +1,34 @@
-do {
-    let mass = parseFloat(prompt("Enter your mass in kg"));
-    let height = parseFloat(prompt("Enter your height in cm"));
+function calculateBMI() {
+  let mass = parseFloat(document.getElementById('mass').value);
+  let height = parseFloat(document.getElementById('height').value);
+  const resultDiv = document.getElementById('result');
 
-    let bmi = mass/(height/100)**2
+  if (isNaN(mass) || isNaN(height) || mass <= 0 || height <= 0) {
+    resultDiv.innerHTML = "Please enter valid mass and height.";
+    resultDiv.style.color = "#ff4d4d";
+    return;
+  }
 
-    if (isNaN(bmi) || bmi <= 0) {
-        alert("Invalid input. Please enter valid numbers for mass and height.");
-        continue; 
-    }
+  let bmi = mass / ((height / 100) ** 2);
+  bmi = bmi.toFixed(2);
 
-    if (bmi < 18.5) {
-        alert("You are underweight");
-    } else if (bmi < 25) {
-        alert("You have normal bmi");
-    } else if (bmi < 30) {
-        alert("You are overweight");
-    } else {
-        alert("You are obese");
-    }
+  let message = "";
+  let color = "";
 
-    var response = prompt("Do you want to continue? (yes/no)");
+  if (bmi < 18.5) {
+    message = `Your BMI is ${bmi} — Underweight`;
+    color = "#ffad33";
+  } else if (bmi < 25) {
+    message = `Your BMI is ${bmi} — Normal weight`;
+    color = "#28a745";
+  } else if (bmi < 30) {
+    message = `Your BMI is ${bmi} — Overweight`;
+    color = "#ffc107";
+  } else {
+    message = `Your BMI is ${bmi} — Obese`;
+    color = "#dc3545";
+  }
 
-    if (response.toLowerCase() !== 'yes') {
-        break; 
-    }
-
-} while (true);
-
-alert("Program ended.");
+  resultDiv.innerHTML = message;
+  resultDiv.style.color = color;
+}
